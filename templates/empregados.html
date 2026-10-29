@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empregados | Projeto Senac</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            color: #1f2937;
+            background: #f3f4f6;
+            font-family: Arial, sans-serif;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tabela-container {
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            white-space: nowrap;
+        }
+        th, td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        th {
+            color: #fff;
+            background: #1d4ed8;
+        }
+        tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        .vazio {
+            padding: 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Empregados</h1>
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Função</th>
+                        <th>Salário</th>
+                        <th>Data de admissão</th>
+                        <th>Status</th>
+                        <th>Filial</th>
+                        <th>Cidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empregado in empregados %}
+                        <tr>
+                            <td>{{ empregado.id }}</td>
+                            <td>{{ empregado.nome_completo }}</td>
+                            <td>{{ empregado.funcao }}</td>
+                            <td>R$ {{ empregado.salario|floatformat:2 }}</td>
+                            <td>{{ empregado.data_admissao|date:"d/m/Y" }}</td>
+                            <td>{% if empregado.ativo %}Ativo{% else %}Inativo{% endif %}</td>
+                            <td>{{ empregado.filial }}</td>
+                            <td>{{ empregado.cidade }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td class="vazio" colspan="8">Nenhum empregado encontrado.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
